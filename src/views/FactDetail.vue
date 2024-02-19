@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FactCard from "@/components/FactCard.vue";
+import FavouriteFact from "@/components/FavouriteFact.vue";
 import {
   IonPage,
   IonHeader,
@@ -7,36 +7,34 @@ import {
   IonTitle,
   IonContent,
   IonGrid,
-  IonCol,
   IonRow,
+  IonImg,
 } from "@ionic/vue";
-import { useCatFacts } from "@/composables/useCatFacts";
-import { onMounted, ref } from "vue";
+import { useFactsStore } from "@/stores/useFactsStore";
 
-const facts = ref();
-
-onMounted(async () => {
-  const { catFacts } = await useCatFacts();
-  facts.value = catFacts.value;
-});
+const { currentFact } = useFactsStore();
 </script>
 
 <template>
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title size="large">Cat Facts</ion-title>
+        <ion-title size="large">Fact</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-grid>
-        <template v-for="fact in facts" :key="fact">
-          <ion-row>
-            <ion-col>
-              <FactCard :cat-fact="fact" />
-            </ion-col>
-          </ion-row>
-        </template>
+        <favourite-fact :fact="currentFact" />
+
+        <ion-row>
+          <ion-img
+            src="https://placekitten.com/400/300"
+            :alt="currentFact"
+          ></ion-img>
+        </ion-row>
+        <ion-row>
+          {{ currentFact }}
+        </ion-row>
       </ion-grid>
     </ion-content>
   </ion-page>

@@ -1,33 +1,39 @@
 <script setup lang="ts">
-import { Fact } from "@/interfaces/catfacts";
 import router from "@/router";
+import { Fact } from "@/interfaces/catfacts";
+import FavouriteFact from "@/components/FavouriteFact.vue";
+import { useFactsStore } from "@/stores/useFactsStore";
 import { IonCard, IonCardHeader, IonCardSubtitle, IonButton } from "@ionic/vue";
 import { PropType, computed } from "vue";
-import { star, starOutline } from "ionicons/icons";
 
+const { setCurrentFact } = useFactsStore();
 const { catFact } = defineProps({
-  catFact: Object as PropType<Fact>,
+  catFact: {
+    required: true,
+    type: Object as PropType<Fact>,
+  },
 });
 
-const fact = computed(() => {
-  return catFact?.fact.slice(0, 50) + (catFact?.length && catFact.length> 50 ? "..." : "");
+const factShort = computed(() => {
+  return (
+    catFact?.fact.slice(0, 50) +
+    (catFact?.length && catFact.length > 50 ? "..." : "")
+  );
 });
 
 const selectFact = () => {
-  router.push('/facts/details');
-}
+  setCurrentFact(catFact.fact);
+  router.push("/fact");
+};
 </script>
 
 <template>
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle> {{ fact }} </ion-card-subtitle>
+      <ion-card-subtitle> {{ factShort }} </ion-card-subtitle>
     </ion-card-header>
-    <ion-button @click="selectFact()" fill="solid">See fact</ion-button>
-    <ion-button @click="addToFavourites()" fill="outline"> 
-        <ion-icon :icon="starOutline" />
-        <ion-label>Add to favourites</ion-label>
-    </ion-button>
+    <ion-button @click="selectFact()" fill="clear">See fact</ion-button>
+    <favourite-fact :fact="catFact.fact" />
   </ion-card>
 </template>
 

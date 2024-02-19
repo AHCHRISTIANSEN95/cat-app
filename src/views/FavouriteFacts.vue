@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { useFactsStore } from "@/stores/useFactsStore";
+
+const { favouriteFacts } = useFactsStore();
+
 </script>
 
 <template>
@@ -10,6 +14,9 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
+      <template v-for="fact in favouriteFacts">
+          {{ fact }}
+      </template>
     </ion-content>
   </ion-page>
 </template>
