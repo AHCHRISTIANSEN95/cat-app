@@ -18,15 +18,17 @@ import { onMounted, ref } from "vue";
 const { catFacts, fetchCatFacts } = useCatFacts();
 const page = ref(1);
 
-onMounted(async ()=> {
+onMounted(async () => {
   await fetchCatFacts(page.value);
-})
+});
 
 const ionInfinite = async (ev: InfiniteScrollCustomEvent) => {
   page.value++;
   await fetchCatFacts(page.value);
   setTimeout(() => ev.target.complete(), 500);
 };
+
+
 </script>
 
 <template>
