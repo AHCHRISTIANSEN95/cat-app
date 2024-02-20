@@ -1,21 +1,44 @@
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import FavouriteFact from "@/components/FavouriteFact.vue";
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonListHeader,
+} from "@ionic/vue";
 import { useFactsStore } from "@/stores/useFactsStore";
 
 const { favouriteFacts } = useFactsStore();
-
 </script>
 
 <template>
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title size="large">Your Favourite Facts</ion-title>
+        <ion-title>Favourites</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <template v-for="fact in favouriteFacts">
-          {{ fact }}
+      <template v-if="favouriteFacts.length > 0">
+        <ion-list>
+          <ion-list-header>
+            <ion-label>My Favourites</ion-label>
+          </ion-list-header>
+          <template v-for="fact in favouriteFacts" :key="fact">
+            <ion-item>
+              <ion-label>{{ fact }}</ion-label>
+              <favourite-fact :fact="fact" />
+            </ion-item>
+          </template>
+        </ion-list>
+      </template>
+      <template v-else>
+        <ion-title>No Favourites</ion-title>
       </template>
     </ion-content>
   </ion-page>

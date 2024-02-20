@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { useFactsStore } from "@/stores/useFactsStore";
-import {
-  IonButton,
-  IonIcon,
-  toastController,
-} from "@ionic/vue";
+import { IonButton, IonIcon, toastController } from "@ionic/vue";
 import { computed } from "vue";
 import { star, starOutline } from "ionicons/icons";
 
@@ -28,7 +24,8 @@ const presentToast = async () => {
   const toast = await toastController.create({
     message: toastMessage.value,
     duration: 1500,
-    position: "bottom",
+    position: "top",
+    color: "light",
   });
 
   await toast.present();
@@ -36,10 +33,7 @@ const presentToast = async () => {
 </script>
 
 <template>
- <ion-button
-      @click="addToFavourites(fact), presentToast()"
-      fill="clear"
-    >
-      <ion-icon :icon="favourite" />
-    </ion-button>
+  <ion-button @click="addToFavourites(fact), presentToast()" fill="clear">
+    <ion-icon :icon="favourite" />
+  </ion-button>
 </template>
