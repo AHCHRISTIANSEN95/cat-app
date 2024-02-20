@@ -1,12 +1,18 @@
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 
+const LOCAL_STORAGE_KEY_FAVOURITES = "favourites";
+const LOCAL_STORAGE_KEY_CURRENT_FACT = "current-fact";
+
 export const useFactsStore = defineStore("favourites", () => {
   const favouriteFacts = ref<string[]>([]);
   const currentFact = ref("");
 
-  const favourites = localStorage.getItem("favourites");
-  if (favourites) favouriteFacts.value = JSON.parse(favourites);
+  const favouritesLocal = localStorage.getItem(LOCAL_STORAGE_KEY_FAVOURITES);
+  const currentLocalFact = localStorage.getItem(LOCAL_STORAGE_KEY_CURRENT_FACT);
+
+  if (favouritesLocal) favouriteFacts.value = JSON.parse(favouritesLocal);
+  if (currentLocalFact) currentFact.value = JSON.parse(currentLocalFact);
 
   const addToFavourites = (fact: string) => {
     favouriteFacts.value.includes(fact)
@@ -30,7 +36,15 @@ export const useFactsStore = defineStore("favourites", () => {
   watch(
     favouriteFacts,
     () => {
-      localStorage.setItem("favourites", JSON.stringify(favouriteFacts.value));
+      localStorage.setItem(LOCAL_STORAGE_KEY_FAVOURITES, JSON.stringify(favouriteFacts.value));
+    },
+    { deep: true }
+  );
+
+  watch(
+    currentFact,
+    () => {
+      localStorage.setItem(LOCAL_STORAGE_KEY_CURRENT_FACT, JSON.stringify(currentFact.value));
     },
     { deep: true }
   );
