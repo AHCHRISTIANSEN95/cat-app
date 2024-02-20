@@ -6,9 +6,6 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonGrid,
-  IonCol,
-  IonRow,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   InfiniteScrollCustomEvent,
@@ -27,30 +24,33 @@ const ionInfinite = async (ev: InfiniteScrollCustomEvent) => {
   await fetchCatFacts(page.value);
   setTimeout(() => ev.target.complete(), 500);
 };
-
-
 </script>
 
 <template>
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title size="large">Cat Facts</ion-title>
+        <ion-title>Cat Facts</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-grid>
+      <div class="fact-list">
         <template v-for="fact in catFacts" :key="fact">
-          <ion-row>
-            <ion-col>
-              <FactCard :cat-fact="fact" />
-            </ion-col>
-          </ion-row>
+          <FactCard :cat-fact="fact" />
         </template>
-      </ion-grid>
+      </div>
       <ion-infinite-scroll @ionInfinite="ionInfinite">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-content>
   </ion-page>
 </template>
+
+<style lang="scss">
+.fact-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 1rem 0;
+}
+</style>

@@ -28,17 +28,26 @@ const selectFact = () => {
 </script>
 
 <template>
-  <ion-card>
+  <ion-card class="fact-card">
     <ion-card-header>
-      <ion-card-subtitle> {{ factShort }} </ion-card-subtitle>
+      <div class="fact-card__header">
+        <ion-card-subtitle> {{ factShort }} </ion-card-subtitle>
+        <favourite-fact :fact="catFact.fact" />
+      </div>
     </ion-card-header>
     <ion-button @click="selectFact()" fill="clear">See fact</ion-button>
-    <favourite-fact :fact="catFact.fact" />
   </ion-card>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .fact-card {
-  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  &__header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
 }
 </style>
