@@ -27,7 +27,7 @@ const { favouriteFacts } = useFactsStore();
       <template v-if="favouriteFacts.length > 0">
         <ion-list>
           <ion-list-header>
-            <ion-label>My Favourites</ion-label>
+            <h1>My Favourites</h1>
           </ion-list-header>
           <template v-for="fact in favouriteFacts" :key="fact">
             <ion-item>

@@ -2,7 +2,7 @@
 import { IonImg, IonSpinner } from "@ionic/vue";
 import { ref } from "vue";
 
-const imageUrl = ref("https://cataas.com/cat");
+const imageUrl = ref("https://cataas.com/cat#" + new Date().getTime());
 const imageHasLoaded = ref(false);
 </script>
 

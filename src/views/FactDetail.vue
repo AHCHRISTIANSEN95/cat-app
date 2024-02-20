@@ -31,8 +31,11 @@ const { currentFact } = useFactsStore();
     <ion-content :fullscreen="true">
       <div class="details">
         <ion-grid>
-          <ion-row>
-            <ion-col class="ion-text-end">
+          <ion-row class="ion-align-items-center">
+            <ion-col class="ion-text-start">
+              <h1 class="ion-no-margin">A cat with a fact</h1>
+            </ion-col>
+            <ion-col size="auto" class="ion-text-end">
               <favourite-fact :fact="currentFact" />
             </ion-col>
           </ion-row>
@@ -51,6 +54,10 @@ const { currentFact } = useFactsStore();
 </template>
 
 <style lang="scss">
+ion-grid {
+  width: 100%;
+}
+
 .details {
   display: grid;
   gap: 20px;
